@@ -1,0 +1,10 @@
+services:
+  tarantool:
+    build:
+      context: .
+    entrypoint: "tt start tt_kv -i"
+    environment:
+      APP_USER_PASSWORD: "app"
+      CLIENT_USER_PASSWORD: "client"
+      REPLICATOR_USER_PASSWORD: "replicator"
+      STORAGE_USER_PASSWORD: "storage"
