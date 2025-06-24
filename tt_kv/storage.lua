@@ -36,9 +36,8 @@ local key_value = {
         local result = {}
         -- Получаем курсор с итератором GE по первичному индексу 'id'
         local index = box.space.key_value.index.id
-        local iter = index:iterator('GE', { prefix })
 
-        for tuple in iter do
+        for _, tuple in index:pairs({ prefix }, { iterator = 'GE' }) do
             local key = tuple[1]
 
             -- Проверяем, начинается ли ключ с заданного префикса

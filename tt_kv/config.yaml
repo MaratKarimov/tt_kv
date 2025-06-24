@@ -18,7 +18,7 @@ credentials:
     crud-role:
       privileges:
         - permissions: [ "execute" ]
-          lua_call: [ "crud.delete", "crud.get", "crud.upsert" ]
+          lua_call: [ "crud.select", "crud.insert" ]
   users:
     app:
       password: '{{ context.app_user_password }}'
@@ -86,28 +86,28 @@ groups:
             roles_cfg:
               roles.metrics-export:
                 http:
-                  - listen: '0.0.0.0:8081'
+                  - listen: 'tarantool:8081'
                     endpoints:
                       - path: /metrics/prometheus/
                         format: prometheus
             iproto:
               listen:
-                - uri: 127.0.0.1:3301
+                - uri: tarantool:3301
               advertise:
-                client: 127.0.0.1:3301
+                client: tarantool:3301
           storage-001-b:
             roles_cfg:
               roles.metrics-export:
                 http:
-                  - listen: '0.0.0.0:8082'
+                  - listen: 'tarantool:8082'
                     endpoints:
                       - path: /metrics/prometheus/
                         format: prometheus
             iproto:
               listen:
-                - uri: 127.0.0.1:3302
+                - uri: tarantool:3302
               advertise:
-                client: 127.0.0.1:3302
+                client: tarantool:3302
   routers:
     roles:
       - roles.crud-router
@@ -128,12 +128,12 @@ groups:
             roles_cfg:
               roles.metrics-export:
                 http:
-                  - listen: '0.0.0.0:8083'
+                  - listen: 'tarantool:8083'
                     endpoints:
                       - path: /metrics/prometheus/
                         format: prometheus
             iproto:
               listen:
-                - uri: 127.0.0.1:3303
+                - uri: tarantool:3303
               advertise:
-                client: 127.0.0.1:3303
+                client: tarantool:3303
