@@ -30,11 +30,20 @@ local key_value = {
             end
             -- add to results
             for _, tuple in ipairs(result) do
-                table.insert(results, tuple)
+                table.insert(results, {tuple.key, tuple.bucket_id, tuple.value, tuple.expire_at})
             end
         end
+        -- get schema
+        local schema, err = crud.schema('key_value')
+        -- check for error
+        if err then
+            error("Failed to call function on storage: " .. tostring(err))
+        end
         -- return
-        return results
+        return {
+            rows = results,
+            metadata = schema.format
+        }
     end,
 }
 
